@@ -33,7 +33,8 @@ int main(int argc, char *argv[]){
 	char digit_str[BUFSIZE] = {0};
 	int *digit_count;
 
-	if(argc == 2){	// user entered (correctly) one argument
+	// user entered (correctly) one argument
+	if(argc == 2){
 		fptr = fopen(argv[1], "r+");
 		if(fptr == NULL){
 			printf("File does not exist. Exiting...\n");
@@ -81,11 +82,15 @@ int main(int argc, char *argv[]){
 		}
 		fclose(fptr);
 	}
-	else if(argc > 2){	// Too many arguments provided by user
+
+	// Too many arguments provided by user
+	else if(argc > 2){
 		printf("Too many arguments\n");
 		printf("usage: %s <filename>\n", argv[0]);
 	}
-	else{				// Too few arguments provided by user
+
+	// Too few arguments provided by user
+	else{
 		printf("Too few arguments\n");
 		printf("usage: %s <filename>\n", argv[0]);
 	}
