@@ -1,25 +1,26 @@
-/* Filename:	sdn.c
+/* sdn.c
  *
- * Author:		William Ersing
- * Description:	This is a programming challenge from codeeval.com.
- * 				The purpose is to read in a file containing one
- * 				"self describing number," (sdn) on each line and
- * 				determine if the number on each line of the file is
- * 				or is not a sdn. A sdn is a number (assuming digit
- * 				positions are labeled 0 to N-1) where the digit in
- * 				each position is equal to the number of times that
- * 				digit appears in the number.
+ * By William Ersing
  *
- * 				For example:
- * 					2020 -> is a sdn;
- * 							0 appears 2 times
- * 							1 appears 0 times
- * 							2 appears 2 times
- * 							3 appears 0 times
+ * This is a programming challenge from codeeval.com.
+ * The purpose is to read in a file containing one
+ * "self describing number," (sdn) on each line and
+ * determine if the number on each line of the file is
+ * or is not a sdn. A sdn is a number (assuming digit
+ * positions are labeled 0 to N-1) where the digit in
+ * each position is equal to the number of times that
+ * digit appears in the number.
+ *
+ * Example:
+ * 		2020 is a Self Defining Number (sdn)
+ * 			->	0 appears 2 times
+ * 			->	1 appears 0 times
+ * 			->	2 appears 2 times
+ * 			->	3 appears 0 times
  */
 
 
-#include <stdlib.h> // needed for calloc(), free(), exit()
+#include <stdlib.h>		// needed for calloc(), free(), exit()
 #include <stdio.h>	// needed for IO
 #include <string.h>	// needed for string manipulation
 #include <stdbool.h>	// needed for boolean
@@ -59,7 +60,7 @@ int main(int argc, char *argv[]){
 						digit_count[digit_val]++;
 					}
 
-					// convert int[] to char[] (needed for strcmp below)
+					// convert int[] to char[]
 					memset(digit_str, 0, sizeof(digit_str));
 					for(i = 0; i < digits; i++){
 						 digit_str[i] = digit_count[i] + '0';
