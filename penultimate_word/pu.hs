@@ -30,7 +30,7 @@ penultimateWord :: [String] -> String
 penultimateWord s
 	| length s == 0	= []
 	| length s <= 2	= head s
-	| otherwise		= head . tail $ reverse s
+	| otherwise		= last $ init s
 
 -- yields list of penultimate words from list of strings
 penultimateWordsList :: [String] -> [String]
