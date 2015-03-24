@@ -48,15 +48,15 @@ sansIndex s = init $ words s
 -- determine if the given index is valid for the given list
 validIndex :: String -> Bool
 validIndex s
-	| a > 0 && a <= (length $ sansIndex s) = True
+	| a > 0 && a <= length (sansIndex s) = True
 	| otherwise = False
 	where
 		a = lineIndex s
 
 -- yields mth to last element in a given list
 mthFromLast :: String -> String
-mthFromLast s = (reverse $ sansIndex s) !! ((lineIndex s) - 1)
+mthFromLast s = reverse (sansIndex s) !! (lineIndex s - 1)
 
 -- yields list of mthFromLast elements
 mthList :: [String] -> [String]
-mthList ss = foldr (\x acc -> if validIndex x then mthFromLast x : acc else acc) [] ss
+mthList = foldr (\x acc -> if validIndex x then mthFromLast x : acc else acc) []
