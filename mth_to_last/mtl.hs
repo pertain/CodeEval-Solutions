@@ -48,8 +48,10 @@ sansIndex s = init $ words s
 -- determine if the given index is valid for the given list
 validIndex :: String -> Bool
 validIndex s
-	| (lineIndex s) > 0 && (lineIndex s) <= (length $ sansIndex s) = True
+	| a > 0 && a <= (length $ sansIndex s) = True
 	| otherwise = False
+	where
+		a = lineIndex s
 
 -- yields mth to last element in a given list
 mthFromLast :: String -> String
