@@ -10,7 +10,7 @@
  -
  - The terminating integer represents the index of the
  - character to be extracted from the end of the list
- - (mth from last element).
+ - (mth from last element (1-base)).
  -
  - From the example above:
  -
