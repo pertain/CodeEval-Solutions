@@ -12,7 +12,9 @@
  * digit appears in the number.
  *
  * Example:
+ *
  *      2020 is a Self Defining Number (sdn)
+ *
  *          ->  0 appears 2 times
  *          ->  1 appears 0 times
  *          ->  2 appears 2 times
@@ -20,10 +22,10 @@
  */
 
 
-#include <stdlib.h> // needed for calloc(), free(), exit()
-#include <stdio.h>  // needed for IO
-#include <string.h> // needed for string manipulation
-#include <stdbool.h>    // needed for boolean
+#include <stdlib.h>     // needed for calloc(), free(), exit()
+#include <stdio.h>      // needed for IO
+#include <string.h>     // needed for string manipulation
+#include <stdbool.h>    // needed for booleans
 
 #define BUFSIZE 30
 
