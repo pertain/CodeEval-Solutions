@@ -10,8 +10,8 @@
  *
  * The format is shown below:
  *
- *  N;D1 D2 D3 D4 ... DK    where:  0 < N < 10000
- *                                  0 < K < 10000
+ *  N;D1 D2 D3 D4 ... DK    where:    0 < N < 10000
+ *                                    0 < K < 10000
  * 	                         -10000 < D < 10000
  *
  * 	example:
