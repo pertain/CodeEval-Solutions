@@ -12,7 +12,7 @@
 ;;
 ;;  "I loaf and lean at my ease"
 ;;
-;;      The penultimate word is: "my"
+;;    The penultimate word is: "my"
 
 (require '[clojure.java.io :as io]
          '[clojure.string :as str])
