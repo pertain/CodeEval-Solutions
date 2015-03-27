@@ -15,15 +15,18 @@
  - 		The penultimate word is: "my"
  -}
 
-module Main where
 import System.Environment (getArgs)
-import Data.Char
+--import Data.Char
 
 main = do
-	[inFile] <- getArgs
-	file <- readFile inFile
+	inFile <- getArgs
+	file <- readFile $ head inFile
 	let linesList = lines file
 	mapM_ putStrLn $ penultimateWordsList linesList
+	--[inFile] <- getArgs
+	--file <- readFile inFile
+	--let linesList = lines file
+	--mapM_ putStrLn $ penultimateWordsList linesList
 
 -- yields the penultimate word in a string of words
 penultimateWord :: [String] -> String
