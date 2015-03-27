@@ -20,7 +20,6 @@
  -  mthFromLast: a
  -}
 
-module Main where
 import System.Environment (getArgs)
 import qualified Data.ByteString.Lazy.Char8 as LB
 
@@ -48,8 +47,8 @@ sansIndex s = init $ words s
 -- determine if the given index is valid for the given list
 validIndex :: String -> Bool
 validIndex s
-    | a > 0 && a <= length (sansIndex s) = True
-    | otherwise = False
+    | a > 0 && a <= length (sansIndex s)    = True
+    | otherwise                             = False
     where
         a = lineIndex s
 
