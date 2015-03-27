@@ -10,9 +10,9 @@
  *
  * The format is shown below:
  *
- * 	N;D1 D2 D3 D4 ... DK	where:	0 < N < 10000
- * 									0 < K < 10000
- * 									-10000 < D < 10000
+ *  N;D1 D2 D3 D4 ... DK    where:   0 < N < 10000
+ *                                   0 < K < 10000
+ * 	                            -10000 < D < 10000
  *
  * 	example:
  * 	5;7 -3 -10 4 2 8 -2 4 -5 -2
@@ -30,16 +30,16 @@
  * 	Days 4-8 (4 2 8 -2 4) yield a total gain of 16.
  */
 
-#include <stdlib.h>	// needed for malloc(), exit()
-#include <stdio.h>	// needed for IO
-#include <string.h>	// needed for strsep(), strtol()
+#include <stdlib.h> // needed for malloc(), exit()
+#include <stdio.h>  // needed for IO
+#include <string.h> // needed for strsep(), strtol()
 
 #define ARRAY_SIZE_MAX 50000
 
 int main(int argc, char *argv[]){
 
-	// user entered correct number of args (i.e. 1)
-	if(argc == 2){
+    // user entered correct number of args (i.e. 1)
+    if(argc == 2){
 		FILE *fptr = fopen(argv[1], "r");
 
 		if(fptr == NULL){
