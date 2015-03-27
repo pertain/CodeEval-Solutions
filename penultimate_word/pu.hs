@@ -27,9 +27,9 @@ main = do
 -- yields the penultimate word in a string of words
 penultimateWord :: [String] -> String
 penultimateWord s
-	| null s		= []
-	| length s <= 2 = head s
-	| otherwise     = last $ init s
+    | null s        = []
+    | length s <= 2 = head s
+    | otherwise     = last $ init s
 
 -- yields list of penultimate words from list of strings
 penultimateWordsList :: [String] -> [String]
