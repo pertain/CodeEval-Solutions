@@ -17,6 +17,7 @@
 
 import System.Environment (getArgs)
 
+main :: IO ()
 main = do
 	inFile <- getArgs
 	file <- readFile $ head inFile
