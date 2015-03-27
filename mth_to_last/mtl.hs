@@ -6,7 +6,7 @@
  - It reads in a file where each line contains a
  - space-separated list of characters, then an integer.
  -
- - Example:		a b c d 4
+ - Example:     a b c d 4
  -
  - The terminating integer represents the index of the
  - character to be extracted from the end of the list
@@ -14,10 +14,10 @@
  -
  - From the example above:
  -
- - 	index:	4
- - 	list:	a b c d
- - 	
- - 	mthFromLast: a
+ -  index:  4
+ -  list:   a b c d
+ -  
+ -  mthFromLast: a
  -}
 
 module Main where
@@ -26,16 +26,16 @@ import qualified Data.ByteString.Lazy.Char8 as LB
 
 main :: IO ()
 main = do
-	[inFile] <- getArgs
-	file <- readFile inFile
-	let linesList = lines file
-	mapM_ putStrLn $ mthList linesList
+    [inFile] <- getArgs
+    file <- readFile inFile
+    let linesList = lines file
+    mapM_ putStrLn $ mthList linesList
 
 -- convert ByteString to Int (if valid)
 bsToInt :: LB.ByteString -> Int
 bsToInt bs = case LB.readInt bs of
-	Nothing -> error "Not an Integer"
-	Just (x,_) -> x
+    Nothing -> error "Not an Integer"
+    Just (x,_) -> x
 
 -- parses out the given index (last element in each string)
 lineIndex :: String -> Int
@@ -48,10 +48,10 @@ sansIndex s = init $ words s
 -- determine if the given index is valid for the given list
 validIndex :: String -> Bool
 validIndex s
-	| a > 0 && a <= length (sansIndex s) = True
-	| otherwise = False
-	where
-		a = lineIndex s
+    | a > 0 && a <= length (sansIndex s) = True
+    | otherwise = False
+    where
+        a = lineIndex s
 
 -- yields mth to last element in a given list
 mthFromLast :: String -> String
