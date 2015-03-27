@@ -10,19 +10,19 @@
  -
  - Example:
  -
- - 	"I loaf and lean at my ease"
+ -  "I loaf and lean at my ease"
  -
- - 		The penultimate word is: "my"
+ -      The penultimate word is: "my"
  -}
 
 import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-	inFile <- getArgs
-	file <- readFile $ head inFile
-	let linesList = lines file
-	mapM_ putStrLn $ penultimateWordsList linesList
+    inFile <- getArgs
+    file <- readFile $ head inFile
+    let linesList = lines file
+    mapM_ putStrLn $ penultimateWordsList linesList
 
 -- yields the penultimate word in a string of words
 penultimateWord :: [String] -> String
