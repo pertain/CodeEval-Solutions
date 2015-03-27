@@ -38,7 +38,7 @@ bsToInt bs = case LB.readInt bs of
 
 -- parses out the given index (last element in each string)
 lineIndex :: String -> Int
-lineIndex s = bsToInt . LB.pack . last $ words s
+lineIndex = bsToInt . LB.pack . last . words
 
 -- yields the given list sans index (everything except last element)
 sansIndex :: String -> [String]
