@@ -25,8 +25,8 @@ import qualified Data.ByteString.Lazy.Char8 as LB
 
 main :: IO ()
 main = do
-    [inFile] <- getArgs
-    file <- readFile inFile
+    inFile <- getArgs
+    file <- readFile $ head inFile
     let linesList = lines file
     mapM_ putStrLn $ mthList linesList
 
@@ -47,10 +47,10 @@ sansIndex s = init $ words s
 -- determine if the given index is valid for the given list
 validIndex :: String -> Bool
 validIndex s
-    | a > 0 && a <= length (sansIndex s)    = True
+    | x > 0 && x <= length (sansIndex s)    = True
     | otherwise                             = False
     where
-        a = lineIndex s
+        x = lineIndex s
 
 -- yields mth to last element in a given list
 mthFromLast :: String -> String
