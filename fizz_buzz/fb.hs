@@ -57,10 +57,13 @@ getN = bsToInt . LB.pack . last . words
 -- fixx buzz output for a single value
 fizzBuzzValue :: Int -> Int -> Int -> String
 fizzBuzzValue n x y
-    | (n `mod` x) == 0 && (n `mod` y) == 0  = "FB"
-    | (n `mod` x) == 0                      = "F"
-    | (n `mod` y) == 0                      = "B"
-    | otherwise                             = show n
+    | mx == 0 && my == 0    = "FB"
+    | mx == 0               = "F"
+    | my == 0               = "B"
+    | otherwise             = show n
+    where
+        mx = n `mod` x
+        my = n `mod` y
 
 -- fizz buzz output for entire line
 fizzBuzzLine :: String -> String
