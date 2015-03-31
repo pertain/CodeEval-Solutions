@@ -56,18 +56,18 @@ getN = bsToInt . LB.pack . last . words
 
 -- fixx buzz output for a single value
 fizzBuzzValue :: Int -> Int -> Int -> String
-fizzBuzzValue n x y
-    | mx == 0 && my == 0    = "FB"
-    | mx == 0               = "F"
-    | my == 0               = "B"
-    | otherwise             = show n
+fizzBuzzValue x y n
+    | mx && my  = "FB"
+    | mx        = "F"
+    | my        = "B"
+    | otherwise = show n
     where
-        mx = n `mod` x
-        my = n `mod` y
+        mx  = n `mod` x == 0
+        my  = n `mod` y == 0
 
 -- fizz buzz output for entire line
 fizzBuzzLine :: String -> String
-fizzBuzzLine ln = unwords $ map (\val -> fizzBuzzValue val x y) [1..n]
+fizzBuzzLine ln = unwords $ map (fizzBuzzValue x y) [1..n]
     where
         x = getX ln
         y = getY ln
