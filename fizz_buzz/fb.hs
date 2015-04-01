@@ -54,7 +54,7 @@ getY = bsToInt . LB.pack . (!! 1) . words
 getN :: String -> Int
 getN = bsToInt . LB.pack . last . words
 
--- fixx buzz output for a single value
+-- fizz buzz output for a single value
 fizzBuzzValue :: Int -> Int -> Int -> String
 fizzBuzzValue x y n
     | mx && my  = "FB"
