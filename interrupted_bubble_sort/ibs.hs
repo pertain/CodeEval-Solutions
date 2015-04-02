@@ -22,8 +22,7 @@
  -}
 
 import System.Environment (getArgs)
---import qualified Data.ByteString.Lazy.Char8 as LB
-import qualified Data.ByteString.Char8 as LB
+import qualified Data.ByteString.Lazy.Char8 as LB
 
 main :: IO ()
 main = do
@@ -49,7 +48,7 @@ getIntList = map (bsToInt . LB.pack) . init . init . words
 -- perform one bubble sort iteration
 bubSortOnce :: Ord a => [a] -> [a]
 bubSortOnce []  = []
-bubSortOnce [x] = [x]
+bubSortOnce (x:[])  = x:[]
 bubSortOnce (x1:x2:xs)
     | x1 > x2   = x2:(bubSortOnce $ x1:xs)
     | otherwise = x1:(bubSortOnce $ x2:xs)
