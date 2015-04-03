@@ -31,7 +31,6 @@
 
 import System.Environment (getArgs)
 import qualified Data.ByteString.Lazy.Char8 as LB
-import qualified Data.List.Split as LS
 
 main :: IO ()
 main = do
