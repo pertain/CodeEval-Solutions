@@ -41,7 +41,7 @@ main = do
 
 -- convert ByteString to Int (if valid)
 bsToInt :: LB.ByteString -> Int
-bsToInt bs =  case LB.readInt bs of
+bsToInt bs = case LB.readInt bs of
     Nothing -> error "Not an Integer"
     Just (x,_) -> x
 
@@ -60,20 +60,21 @@ getIntList = map (bsToInt . LB.pack) . init . init . words
 -- perform one bubble sort iteration
 bubSortOnce :: Ord a => [a] -> [a]
 bubSortOnce []  = []
-bubSortOnce (x:[])  = x:[]
+bubSortOnce [x] = [x]
 bubSortOnce (x1:x2:xs)
-    | x1 > x2   = x2:(bubSortOnce $ x1:xs)
-    | otherwise = x1:(bubSortOnce $ x2:xs)
+    | x1 > x2   = x2:bubSortOnce (x1:xs)
+    | otherwise = x1:bubSortOnce (x2:xs)
 
--- perform bubble sort (N iterations) on entire line
+-- perform bubble sort N times on one line
 bubSortN :: String -> [Int]
-bubSortN s = last $ take (getN s $ length sz) $ iterate (bubSortOnce) sz
-    where sz = getIntList s
+bubSortN s =
+    let ls = getIntList s
+    in last . take (getN s $ length ls) $ iterate bubSortOnce ls
 
 -- convert list of Ints to a string
-intsToStrings :: [Int] -> String
-intsToStrings = unwords . map show
+intsToString :: [Int] -> String
+intsToString = unwords . map show
 
 -- perform bubble sort (N iterations) on every line (i.e. entire file)
 bubSortList :: [String] -> [String]
-bubSortList = map (intsToStrings . bubSortN)
+bubSortList = map (intsToString . bubSortN)
