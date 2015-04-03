@@ -19,10 +19,19 @@
  -
  -  Output:
  -      36 47 28 20 78 79 16 8 45 72 69 81 66 60 8 3 86 87 90 90
+ -
+ - ---------------------------------------------------------------------------
+ - TO DO:
+ -  ~ stop sorting when list is sorted
+ -      (currently sorts for N (or length L) iterations)
+ -  ~ each iteration should sort one fewer element (previously sorted element)
+ -      (currently sorts all elements in each iteration)
+ - ---------------------------------------------------------------------------
  -}
 
 import System.Environment (getArgs)
 import qualified Data.ByteString.Lazy.Char8 as LB
+import qualified Data.List.Split as LS
 
 main :: IO ()
 main = do
@@ -38,8 +47,12 @@ bsToInt bs =  case LB.readInt bs of
     Just (x,_) -> x
 
 -- extract number of iterations (N)
-getN :: String -> Int
-getN = bsToInt . LB.pack . last . words
+getN :: String -> Int -> Int
+getN st sz
+    | n > sz    = sz
+    | otherwise = n + 1
+    where
+        n = bsToInt . LB.pack . last $ words st
 
 -- extract list to be sorted (L)
 getIntList :: String -> [Int]
@@ -55,7 +68,8 @@ bubSortOnce (x1:x2:xs)
 
 -- perform bubble sort (N iterations) on entire line
 bubSortN :: String -> [Int]
-bubSortN s = last $ take (getN s + 1) $ iterate (bubSortOnce) $ getIntList s
+bubSortN s = last $ take (getN s $ length sz) $ iterate (bubSortOnce) sz
+    where sz = getIntList s
 
 -- convert list of Ints to a string
 intsToStrings :: [Int] -> String
