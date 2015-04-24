@@ -34,7 +34,7 @@ import qualified Data.ByteString.Lazy.Char8 as LB
 
 main :: IO ()
 main = do
-    inFile <-getArgs
+    inFile <- getArgs
     file <- readFile $ head inFile
     let linesList = lines file
     mapM_ putStrLn $ bubSortList linesList
@@ -42,8 +42,8 @@ main = do
 -- convert ByteString to Int (if valid)
 bsToInt :: LB.ByteString -> Int
 bsToInt bs = case LB.readInt bs of
-    Nothing -> error "Not an Integer"
-    Just (x,_) -> x
+    Nothing     -> error "Not an Integer"
+    Just (x,_)  -> x
 
 -- extract number of iterations (N)
 getN :: String -> Int -> Int

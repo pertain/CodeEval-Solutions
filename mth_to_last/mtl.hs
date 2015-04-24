@@ -33,8 +33,8 @@ main = do
 -- convert ByteString to Int (if valid)
 bsToInt :: LB.ByteString -> Int
 bsToInt bs = case LB.readInt bs of
-    Nothing -> error "Not an Integer"
-    Just (x,_) -> x
+    Nothing     -> error "Not an Integer"
+    Just (x,_)  -> x
 
 -- parses out the given index (last element in each string)
 lineIndex :: String -> Int
