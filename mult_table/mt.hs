@@ -11,8 +11,7 @@
 import Text.Printf
 
 main :: IO ()
-main = do
-    printTable $ multTable 12
+main = printTable $ multTable 12
 
 -- create a nxn multiplication table of
 multTable :: Int -> [[Int]]
@@ -20,6 +19,7 @@ multTable n = [[x*y | x <- [1..n]] | y <- [1..n]]
 
 -- print the table with correct formatting
 printTable :: PrintfArg a => [[a]] -> IO ()
-printTable table = mapM_ printRow table
+--printTable table = mapM_ printRow table -- works but hlint said to change to line below
+printTable = mapM_ printRow -- untested, but recommended by hlint
     where
         printRow row = mapM_ (printf "%4d") row >> putStrLn ""
