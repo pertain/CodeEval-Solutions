@@ -46,22 +46,44 @@ groupNums s
     | length s == 4 = splitPlaces [1,3] s
     | not (null s)  = splitPlaces [3] s
 
+padZeroes :: [Int] -> [Int]
+padZeroes is
+    | length is == 3    = is
+    | length is == 2    = 0 : is
+    | length is == 1    = [0,0] ++ is
+    | null is           = [0,0,0]
+
+{-
 printGenSize :: [Int] -> String
 printGenSize str
     | length str > 3 || null str    = error "Invalid"
     | length str == 3               = "Million"
     | length str == 2               = "Thousand"
     | not (null str)                = printOnes (last str) ++ "Hundred"
+-}
 
---parseMillions :: [Int] -> String
+-- working on a way to pass an int list w/ fewer than 3 elements and have it recognize the missing
+-- elements as either empty lists, or like this > [0,0,0]
+textify :: [[Int]] -> String
+textify (m:t:h:_) = parseMillions (padZeroes m) ++ parseThousands (padZeroes t) ++ parseHundreds (padZeroes h)
 
---parseThousands :: [Int] -> String
+parseMillions :: [Int] -> String
+parseMillions mills @(h:t:o:_)
+    | mills == [0,0,0] = ""
+    | t /= 1 = printHundreds h ++ printTens t ++ printOnes o ++ "Million"
+    | t == 1 = printHundreds h ++ printTeens o ++ "Million"
+
+parseThousands :: [Int] -> String
+parseThousands thous @(h:t:o:_)
+    | thous == [0,0,0] = ""
+    | t /= 1 = printHundreds h ++ printTens t ++ printOnes o ++ "Thousand"
+    | t == 1 = printHundreds h ++ printTeens o ++ "Thousand"
 
 parseHundreds :: [Int] -> String
-parseHundreds h
-    | length h == 3 = printHundreds h
-    | length h == 2 = printHundreds $ 0 : h
-    | length h == 1 = printHundreds $ [0,0] ++ h
+parseHundreds hunds @(h:t:o:_)
+    | hunds == [0,0,0] = ""
+    | t /= 1 = printHundreds h ++ printTens t ++ printOnes o ++ "Dollars"
+    | t == 1 = printHundreds h ++ printTeens o ++ "Dollars"
 
 printOnes :: Int -> String
 printOnes o
@@ -76,7 +98,7 @@ printOnes o
     | o == 8 = "Eight"
     | o == 9 = "Nine"
 
--- s is the second digit of two (i.e. 13 >> 3)
+-- t is the second digit of two (i.e. 13 >> 3)
 printTeens :: Int -> String
 printTeens t
     | t == 0 = "Ten"
