@@ -19,7 +19,6 @@ multTable n = [[x*y | x <- [1..n]] | y <- [1..n]]
 
 -- print the table with correct formatting
 printTable :: PrintfArg a => [[a]] -> IO ()
---printTable table = mapM_ printRow table -- works but hlint said to change to line below
-printTable = mapM_ printRow -- untested, but recommended by hlint
+printTable = mapM_ printRow
     where
         printRow row = mapM_ (printf "%4d") row >> putStrLn ""
