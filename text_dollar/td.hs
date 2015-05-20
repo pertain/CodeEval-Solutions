@@ -5,38 +5,30 @@
  -}
 
 import System.Environment (getArgs)
-import Data.List.Split (chunksOf, splitPlaces)
+import Data.List.Split (splitPlaces)
 import qualified Data.ByteString.Lazy.Char8 as LB
+
+main :: IO ()
+main = do
+    inFile <- getArgs
+    file <- readFile $ head inFile
+    let linesList = lines file
+    mapM_ putStrLn $ textifyAll linesList
 
 bsToInt :: LB.ByteString -> Int
 bsToInt bs = case LB.readInt bs of
     Nothing     -> error "Not an Integer"
     Just (x,_)  -> x
 
--- convert string of numeric Chars to list of individual Ints, grouped by decimal place
-intGroups :: [String] -> [[Int]]
-intGroups ss = map stringToInts chks
-    where
-        stringToInts    = map (bsToInt . LB.pack)
-        chks            = chunksOf 1 ss
+stringToInts :: String -> [Int]
+stringToInts s = map (bsToInt . LB.pack) (splitPlaces [1,1,1] s)
+--stringToInts s = map (bsToInt . LB.pack) (splitEvery 1 s)
 
--- this was just written -- this output should be fed into stringsToInts (or do it here)
--- this allows me to have three helper functions:
---      ~ Millions >> first item in list
---          > always prints "Million"
---          > passes to printOnes if only one digit
---          > passes to printTens (and printOnes vicariously) if 2 digits
---          > passes to printHundreds (and printTens and printOnes) if 3 digits
---      ~ Thousands >> second item in list
---          > always prints "Thousand"
---          > all other steps from above are repeated here
---      ~ Hundreds >> third item in list
---          > always prints "Hundred"
---          > all other steps from above are repeated here
--- continue reworking/modifying print functions below to conform to the
--- approach listed above
-groupNums :: String -> [String]
-groupNums s
+intGroups :: [String] -> [[Int]]
+intGroups = map stringToInts
+
+groupStrings :: String -> [String]
+groupStrings s
     | length s > 9 || null s = error "Invalid Integer"
     | length s == 9 = splitPlaces [3,3,3] s
     | length s == 8 = splitPlaces [2,3,3] s
@@ -46,6 +38,13 @@ groupNums s
     | length s == 4 = splitPlaces [1,3] s
     | not (null s)  = splitPlaces [3] s
 
+padLists :: [[Int]] -> [[Int]]
+padLists iss
+    | length iss == 3   = iss
+    | length iss == 2   = [] : iss
+    | length iss == 1   = [[],[]] ++ iss
+    | null iss          = [[],[],[]]
+
 padZeroes :: [Int] -> [Int]
 padZeroes is
     | length is == 3    = is
@@ -53,37 +52,26 @@ padZeroes is
     | length is == 1    = [0,0] ++ is
     | null is           = [0,0,0]
 
-{-
-printGenSize :: [Int] -> String
-printGenSize str
-    | length str > 3 || null str    = error "Invalid"
-    | length str == 3               = "Million"
-    | length str == 2               = "Thousand"
-    | not (null str)                = printOnes (last str) ++ "Hundred"
--}
-
--- working on a way to pass an int list w/ fewer than 3 elements and have it recognize the missing
--- elements as either empty lists, or like this > [0,0,0]
-textify :: [[Int]] -> String
-textify (m:t:h:_) = parseMillions (padZeroes m) ++ parseThousands (padZeroes t) ++ parseHundreds (padZeroes h)
+padAll :: [[Int]] -> [[Int]]
+padAll lss = map padZeroes (padLists lss)
 
 parseMillions :: [Int] -> String
 parseMillions mills @(h:t:o:_)
     | mills == [0,0,0] = ""
-    | t /= 1 = printHundreds h ++ printTens t ++ printOnes o ++ "Million"
-    | t == 1 = printHundreds h ++ printTeens o ++ "Million"
+    | t /= 1 = printHundreds h ++ printTens t o ++ printOnes o ++ "Million"
+    | t == 1 = printHundreds h ++ printTens t o ++ "Million"
 
 parseThousands :: [Int] -> String
 parseThousands thous @(h:t:o:_)
     | thous == [0,0,0] = ""
-    | t /= 1 = printHundreds h ++ printTens t ++ printOnes o ++ "Thousand"
-    | t == 1 = printHundreds h ++ printTeens o ++ "Thousand"
+    | t /= 1 = printHundreds h ++ printTens t o ++ printOnes o ++ "Thousand"
+    | t == 1 = printHundreds h ++ printTens t o ++ "Thousand"
 
 parseHundreds :: [Int] -> String
 parseHundreds hunds @(h:t:o:_)
     | hunds == [0,0,0] = ""
-    | t /= 1 = printHundreds h ++ printTens t ++ printOnes o ++ "Dollars"
-    | t == 1 = printHundreds h ++ printTeens o ++ "Dollars"
+    | t /= 1 = printHundreds h ++ printTens t o ++ printOnes o ++ "Dollars"
+    | t == 1 = printHundreds h ++ printTens t o ++ "Dollars"
 
 printOnes :: Int -> String
 printOnes o
@@ -98,24 +86,24 @@ printOnes o
     | o == 8 = "Eight"
     | o == 9 = "Nine"
 
--- t is the second digit of two (i.e. 13 >> 3)
+-- t is the second digit of two (i.e. for 13 >> t = 3)
 printTeens :: Int -> String
-printTeens t
-    | t == 0 = "Ten"
-    | t == 1 = "Eleven"
-    | t == 2 = "Twelve"
-    | t == 3 = "Thirteen"
-    | t == 4 = "Fourteen"
-    | t == 5 = "Fifteen"
-    | t == 6 = "Sixteen"
-    | t == 7 = "Seventeen"
-    | t == 8 = "Eighteen"
-    | t == 9 = "Nineteen"
+printTeens o
+    | o == 0 = "Ten"
+    | o == 1 = "Eleven"
+    | o == 2 = "Twelve"
+    | o == 3 = "Thirteen"
+    | o == 4 = "Fourteen"
+    | o == 5 = "Fifteen"
+    | o == 6 = "Sixteen"
+    | o == 7 = "Seventeen"
+    | o == 8 = "Eighteen"
+    | o == 9 = "Nineteen"
 
-printTens :: Int -> String
-printTens t
+printTens :: Int -> Int -> String
+printTens t o
     | t == 0 = ""
-    | t == 1 = ""
+    | t == 1 = printTeens o
     | t == 2 = "Twenty"
     | t == 3 = "Thirty"
     | t == 4 = "Forty"
@@ -129,3 +117,14 @@ printHundreds :: Int -> String
 printHundreds h
     | h == 0 = ""
     | h >= 0 = printOnes h ++ "Hundred"
+
+prepareInput :: String -> [[Int]]
+prepareInput = padAll . intGroups . groupStrings
+
+textify :: [[Int]] -> String
+textify lss @(m:t:h:_)
+    | lss == [[0,0,0],[0,0,0],[0,0,0]] = "ZeroDollars"
+    | otherwise = parseMillions m ++ parseThousands t ++ parseHundreds h
+
+textifyAll :: [String] -> [String]
+textifyAll = map (textify . prepareInput)
