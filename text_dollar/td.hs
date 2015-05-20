@@ -13,7 +13,8 @@ main = do
     inFile <- getArgs
     file <- readFile $ head inFile
     let linesList = lines file
-    mapM_ putStrLn $ textifyAll linesList
+    --mapM_ putStrLn $ textifyAll linesList
+    mapM_ putStrLn $ txa linesList
 
 bsToInt :: LB.ByteString -> Int
 bsToInt bs = case LB.readInt bs of
@@ -121,10 +122,18 @@ printHundreds h
 prepareInput :: String -> [[Int]]
 prepareInput = padAll . intGroups . groupStrings
 
+isZero :: [[Int]] -> Bool
+isZero lss
+    | lss == [[0,0,0],[0,0,0],[0,0,0]]  = True
+    | otherwise                         = False
+
 textify :: [[Int]] -> String
-textify lss @(m:t:h:_)
-    | lss == [[0,0,0],[0,0,0],[0,0,0]] = "ZeroDollars"
-    | otherwise = parseMillions m ++ parseThousands t ++ parseHundreds h
+textify lss @(m:t:h:_)= parseMillions m ++ parseThousands t ++ parseHundreds h
 
 textifyAll :: [String] -> [String]
 textifyAll = map (textify . prepareInput)
+
+-- This is currently being tested.
+-- Trying to skip lines that equate to zero (e.g. [[0,0,0],[0,0,0],[0,0,0]])
+--txa :: String -> [String]
+--txa = (foldr (\x acc -> if isZero x then textify x : acc else acc) []) . prepareInput
