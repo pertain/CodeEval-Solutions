@@ -13,7 +13,6 @@ main = do
     inFile <- getArgs
     file <- readFile $ head inFile
     let linesList = lines file
-    --mapM_ putStrLn $ textifyAll linesList
     mapM_ putStrLn $ textifyAll $ rmZeroes linesList
 
 bsToInt :: LB.ByteString -> Int
@@ -23,7 +22,6 @@ bsToInt bs = case LB.readInt bs of
 
 stringToInts :: String -> [Int]
 stringToInts s = map (bsToInt . LB.pack) (splitPlaces [1,1,1] s)
---stringToInts s = map (bsToInt . LB.pack) (splitEvery 1 s)
 
 intGroups :: [String] -> [[Int]]
 intGroups = map stringToInts
@@ -71,8 +69,8 @@ parseThousands thous @(h:t:o:_)
 parseHundreds :: [Int] -> String
 parseHundreds hunds @(h:t:o:_)
     | hunds == [0,0,0] = ""
-    | t /= 1 = printHundreds h ++ printTens t o ++ printOnes o ++ "Dollars"
-    | t == 1 = printHundreds h ++ printTens t o ++ "Dollars"
+    | t /= 1 = printHundreds h ++ printTens t o ++ printOnes o
+    | t == 1 = printHundreds h ++ printTens t o
 
 printOnes :: Int -> String
 printOnes o
@@ -125,16 +123,8 @@ rmZeroes = foldr (\x acc -> if x /= "0" then x : acc else acc) []
 prepareInput :: String -> [[Int]]
 prepareInput = padAll . intGroups . groupStrings
 
-{-
-isZero :: [[Int]] -> Bool
-isZero lss
-    | lss == [[0,0,0],[0,0,0],[0,0,0]]  = True
-    | otherwise                         = False
--}
-
 textify :: [[Int]] -> String
-textify lss @(m:t:h:_)= parseMillions m ++ parseThousands t ++ parseHundreds h
+textify lss @(m:t:h:_)= parseMillions m ++ parseThousands t ++ parseHundreds h ++ "Dollars"
 
 textifyAll :: [String] -> [String]
 textifyAll = map (textify . prepareInput)
-
