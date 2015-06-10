@@ -3,8 +3,6 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com (EASY).
- - 
- - 
  - https://www.codeeval.com/open_challenges/26/
  -}
 
