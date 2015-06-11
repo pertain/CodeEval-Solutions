@@ -3,6 +3,12 @@
  * By William Ersing
  *
  * This is a programming challenge from CodeEval.com
+ *
+ * (EASY) Max Range Sum
+ * https://www.codeeval.com/open_challenges/186/
+ *
+ * =========================================================
+ *
  * It reads in a file where each line contains an
  * integer, N, representing a N-day period, a semicolon (;),
  * then a span of K separate days, D, representing daily
@@ -28,6 +34,8 @@
  * 	7 -3 -10 ((4 2 8 -2 4)) -5 -2
  *
  * 	Days 4-8 (4 2 8 -2 4) yield a total gain of 16.
+ *
+ * =========================================================
  */
 
 #include <stdlib.h> // needed for malloc(), exit()

@@ -3,6 +3,12 @@
  * By William Ersing
  *
  * This is a programming challenge from codeeval.com.
+ *
+ * (EASY) Self Describing Numbers
+ * https://www.codeeval.com/open_challenges/40/
+ *
+ * ===================================================
+ *
  * The purpose is to read in a file containing one
  * "self describing number," (sdn) on each line and
  * determine if the number on each line of the file is
@@ -19,6 +25,8 @@
  *          ->  1 appears 0 times
  *          ->  2 appears 2 times
  *          ->  3 appears 0 times
+ *
+ * ===================================================
  */
 
 

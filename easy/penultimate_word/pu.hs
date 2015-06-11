@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (EASY) Penultimate Word
+ - https://www.codeeval.com/open_challenges/92/
+ -
+ - ==================================================
+ -
  - It reads in a file with each line containing a
  - string of words. The goal is to locate the
  - penultimate word (second from last) in each string
@@ -13,6 +19,8 @@
  -  "I loaf and lean at my ease"
  -
  -      The penultimate word is: "my"
+ -
+ - ==================================================
  -}
 
 import System.Environment (getArgs)

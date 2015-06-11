@@ -2,6 +2,10 @@
  -
  - By William Ersing
  -
+ - This is a CodeEval challenge.
+ -
+ - (HARD) Text Dollar
+ - https://www.codeeval.com/open_challenges/52/
  -}
 
 import System.Environment (getArgs)

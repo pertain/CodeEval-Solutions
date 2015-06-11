@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (MODERATE) Interrupted Bubble Sort
+ - https://www.codeeval.com/open_challenges/158/
+ -
+ - ===========================================================================
+ -
  - It reads in a file where each line contains a
  - space-separated list of numbers to be sorted (L),
  - a delimiter (|) then a number (N) for iterations.
@@ -27,6 +33,8 @@
  -  ~ each iteration should sort one fewer element (previously sorted element)
  -      (currently sorts all elements in each iteration)
  - ---------------------------------------------------------------------------
+ -
+ - ===========================================================================
  -}
 
 import System.Environment (getArgs)

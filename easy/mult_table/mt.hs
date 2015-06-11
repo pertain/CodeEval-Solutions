@@ -3,9 +3,17 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (EASY) Multiplication Table
+ - https://www.codeeval.com/open_challenges/23/
+ -
+ - =================================================
+ -
  - It prints a 12x12 multiplication table with each
  - column aligned. (each number is right aligned
  - and allotted four character spaces).
+ -
+ - =================================================
  -}
 
 import Text.Printf

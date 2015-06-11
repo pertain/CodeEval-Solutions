@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (EASY) Lowest Unique Number
+ - https://www.codeeval.com/open_challenges/103/
+ -
+ - ========================================================
+ -
  - It reads in a file where each line contains N integers
  - from 1 to 9. Each line of integers represents a game
  - with N players. In this game every player writes down
@@ -30,6 +36,7 @@
  -          Lowest Unique (LUN)     > n/a
  -          Index of LUN (Winner)   > 0
  -
+ - ========================================================
  -}
 
 import System.Environment (getArgs)

@@ -2,7 +2,9 @@
  -
  - By William Ersing
  -
- - CodeEval challenge (Easy):   Swap Numbers
+ - This is a CodeEval challenge
+ -
+ - (EASY) Swap Numbers
  - https://www.codeeval.com/open_challenges/196/
  -}
 

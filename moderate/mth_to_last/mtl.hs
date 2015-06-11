@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (MODERATE) Mth to Last Element
+ - https://www.codeeval.com/open_challenges/10/
+ -
+ - ====================================================
+ -
  - It reads in a file where each line contains a
  - space-separated list of characters, then an integer.
  -
@@ -18,6 +24,8 @@
  -  list:   a b c d
  -  
  -  mthFromLast: a
+ -
+ - ====================================================
  -}
 
 import System.Environment (getArgs)

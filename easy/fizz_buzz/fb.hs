@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (EASY) Fizz Buzz
+ - https://www.codeeval.com/open_challenges/1/
+ -
+ - ==========================================================
+ -
  - It reads in a file where each line contains three (3)
  - space-separated integers. The first value (X) is the
  - first divisor (Fizz), the second value (Y) is the
@@ -24,6 +30,8 @@
  -          N = 15
  -
  -      Result:     1 F 3 F 5 F B F 9 11 F 13 FB 15
+ -
+ - ==========================================================
  -}
 
 import System.Environment (getArgs)

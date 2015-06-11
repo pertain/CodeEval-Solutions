@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (MODERATE) Longest Lines
+ - https://www.codeeval.com/open_challenges/2/
+ -
+ - =====================================================
+ -
  - It reads in a file where the first line contains
  - a valid positive integer (N), and every other line
  - contains a string of varying length. The task is
@@ -21,6 +27,8 @@
  -
  -      Output: San Francisco
  -              Hello World
+ -
+ - =====================================================
  -}
 
 import System.Environment (getArgs)

@@ -3,6 +3,12 @@
  - By William Ersing
  -
  - This is a programming challenge from CodeEval.com.
+ -
+ - (MODERATE) Remove Characters
+ - https://www.codeeval.com/open_challenges/13/
+ -
+ - ======================================================
+ -
  - It reads in a file where each line contains two
  - comma-separated fields. The first is a string, and
  - the second is three characters. The program is to
@@ -19,10 +25,12 @@
  -
  -      Output: how re you
  -
- - ======================================================
+ - ------------------------------------------------------
  -
  - TO DO:
  -  ~ refactor rmCharsList so splitOn is only called once
+ -
+ - ------------------------------------------------------
  -
  - ======================================================
  -}

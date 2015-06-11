@@ -2,7 +2,9 @@
  -
  - By William Ersing
  -
- - This is a programming challenge from CodeEval.com (EASY).
+ - This is a programming challenge from CodeEval.com
+ -
+ - (EASY) File Size
  - https://www.codeeval.com/open_challenges/26/
  -}
 
