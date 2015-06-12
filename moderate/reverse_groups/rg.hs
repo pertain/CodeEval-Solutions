@@ -4,9 +4,6 @@
  -
  - (MODERATE) Reverse Groups
  - https://www.codeeval.com/open_challenges/71/
- -
- - THIS HAS BEEN SUBMITTED, BUT ONLY RECIEVED PARTIAL CREDIT
- - STILL WORKING TOWARD THE FULL SOLUTION
  -}
 
 import System.Environment (getArgs)
@@ -29,16 +26,22 @@ bsToInt bs = case LB.readInt bs of
 strToInt :: String -> Int
 strToInt = bsToInt . LB.pack
 
+-- Determines if list length is a multiple of k
 validMultiple :: [[String]] -> Int -> Bool
-validMultiple s k = length (concat s) `mod` k == 0
+validMultiple s k
+    | k > 0     = length (concat s) `mod` k == 0
+    | otherwise = error "Cannot divide by zero"
 
-revGrps :: [[String]] -> Int -> String
+-- If list length is multiple of k, then reverse every group
+-- If it is not multiple of k, then reverse all but last group
+revGrps :: [[String]] -> Int -> [String]
 revGrps sss k
-    | validMultiple sss k   = concat (concatMap reverse sss)
-    | otherwise             = concat (concatMap reverse (init sss) ++ last sss)
+    | validMultiple sss k   = concatMap reverse sss
+    | otherwise             = concatMap reverse (init sss) ++ last sss
 
+-- Split list into groups of size k, reverse them and output as string
 finalizeLine :: String -> String
-finalizeLine s = intersperse ',' (revGrps grps k)
+finalizeLine s = init $ concatMap (++",") (revGrps grps k)
     where
         splitLn = splitOneOf ",;" s
         k       = strToInt $ last splitLn
