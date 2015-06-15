@@ -43,6 +43,7 @@ binaryToDigit s
     | otherwise         = "#"
 
 
+{-
 -- under construction - need to change the pattern to this style -> ['1','1','0']
 willItFit :: String -> String -> Bool
 willItFit dig bin
@@ -67,6 +68,31 @@ willItFit dig bin
     | bin == (1:1:1:1:1:1:1:_) && dig == "8"    = True
     | bin == (1:1:1:1:_:1:1:_) && dig == "9"    = True
     | otherwise                                 = False
+-}
+
+--willItFit :: String -> String -> Bool
+willItFit [_,_,_,_,_,_,_,'0']               [_,'.']                 = False
+willItFit ['1','1','1','1','1','1',_,'1']   "0."  = True
+willItFit [_,'1','1',_,_,_,_,'1']           "1."  = True
+willItFit ['1','1',_,'1','1',_,'1','1']     "2."  = True
+willItFit ['1','1','1','1',_,_,'1','1']     "3."  = True
+willItFit [_,'1','1',_,_,'1','1','1']       "4."  = True
+willItFit ['1',_,'1','1',_,'1','1','1']     "5."  = True
+willItFit ['1',_,'1','1','1','1','1','1']   "6."  = True
+willItFit ['1','1','1',_,_,_,_,'1']         "7."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "8."  = True
+willItFit ['1','1','1','1',_,'1','1','1']   "9."  = True
+
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
+willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
 
 
 -- this part is under construction
