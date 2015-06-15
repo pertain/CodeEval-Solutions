@@ -42,7 +42,63 @@ binaryToDigit s
     | s == "11110110"   = "9"
     | otherwise         = "#"
 
+
+-- under construction - need to change the pattern to this style -> ['1','1','0']
+willItFit :: String -> String -> Bool
+willItFit dig bin
+    | bin == (1:1:1:1:1:1:_:1) && dig == "0."   = True
+    | bin == (_:1:1:_:_:_:_:1) && dig == "1."   = True
+    | bin == (1:1:_:1:1:_:1:1) && dig == "2."   = True
+    | bin == (1:1:1:1:_:_:1:1) && dig == "3."   = True
+    | bin == (_:1:1:_:_:1:1:1) && dig == "4."   = True
+    | bin == (1:_:1:1:_:1:1:1) && dig == "5."   = True
+    | bin == (1:_:1:1:1:1:1:1) && dig == "6."   = True
+    | bin == (1:1:1:_:_:_:_:1) && dig == "7."   = True
+    | bin == (1:1:1:1:1:1:1:1) && dig == "8."   = True
+    | bin == (1:1:1:1:_:1:1:1) && dig == "9."   = True
+    | bin == (1:1:1:1:1:1:_:_) && dig == "0"    = True
+    | bin == (_:1:1:_:_:_:_:_) && dig == "1"    = True
+    | bin == (1:1:_:1:1:_:1:_) && dig == "2"    = True
+    | bin == (1:1:1:1:_:_:1:_) && dig == "3"    = True
+    | bin == (_:1:1:_:_:1:1:_) && dig == "4"    = True
+    | bin == (1:_:1:1:_:1:1:_) && dig == "5"    = True
+    | bin == (1:_:1:1:1:1:1:_) && dig == "6"    = True
+    | bin == (1:1:1:_:_:_:_:_) && dig == "7"    = True
+    | bin == (1:1:1:1:1:1:1:_) && dig == "8"    = True
+    | bin == (1:1:1:1:_:1:1:_) && dig == "9"    = True
+    | otherwise                                 = False
+
+
 -- this part is under construction
 formFullNum :: [String] -> String
-formFullNum = foldl (\x acc -> binaryToDigit x ++ acc) []
+--formFullNum = foldl (\x acc -> binaryToDigit x ++ acc) []
 --formFullNum ss = foldr (\x acc -> binaryToDigit x ++ acc) []
+formFullNum = foldr (\x acc -> (binaryToDigit x) ++ acc) []
+
+
+showDigitValue = map binaryToDigit
+
+
+digitToBinary :: String -> String
+digitToBinary s
+    | s == "0."  = "11111101"
+    | s == "1."  = "01100001"
+    | s == "2."  = "11011011"
+    | s == "3."  = "11110011"
+    | s == "4."  = "01100111"
+    | s == "5."  = "10110111"
+    | s == "6."  = "10111111"
+    | s == "7."  = "11100001"
+    | s == "8."  = "11111111"
+    | s == "9."  = "11110111"
+    | s == "0"   = "11111100"
+    | s == "1"   = "01100000"
+    | s == "2"   = "11011010"
+    | s == "3"   = "11110010"
+    | s == "4"   = "01100110"
+    | s == "5"   = "10110110"
+    | s == "6"   = "10111110"
+    | s == "7"   = "11100000"
+    | s == "8"   = "11111110"
+    | s == "9"   = "11110110"
+    | otherwise     = "#"
