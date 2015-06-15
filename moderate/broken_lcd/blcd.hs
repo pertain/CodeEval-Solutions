@@ -42,69 +42,6 @@ binaryToDigit s
     | s == "11110110"   = "9"
     | otherwise         = "#"
 
-
-{-
--- under construction - need to change the pattern to this style -> ['1','1','0']
-willItFit :: String -> String -> Bool
-willItFit dig bin
-    | bin == (1:1:1:1:1:1:_:1) && dig == "0."   = True
-    | bin == (_:1:1:_:_:_:_:1) && dig == "1."   = True
-    | bin == (1:1:_:1:1:_:1:1) && dig == "2."   = True
-    | bin == (1:1:1:1:_:_:1:1) && dig == "3."   = True
-    | bin == (_:1:1:_:_:1:1:1) && dig == "4."   = True
-    | bin == (1:_:1:1:_:1:1:1) && dig == "5."   = True
-    | bin == (1:_:1:1:1:1:1:1) && dig == "6."   = True
-    | bin == (1:1:1:_:_:_:_:1) && dig == "7."   = True
-    | bin == (1:1:1:1:1:1:1:1) && dig == "8."   = True
-    | bin == (1:1:1:1:_:1:1:1) && dig == "9."   = True
-    | bin == (1:1:1:1:1:1:_:_) && dig == "0"    = True
-    | bin == (_:1:1:_:_:_:_:_) && dig == "1"    = True
-    | bin == (1:1:_:1:1:_:1:_) && dig == "2"    = True
-    | bin == (1:1:1:1:_:_:1:_) && dig == "3"    = True
-    | bin == (_:1:1:_:_:1:1:_) && dig == "4"    = True
-    | bin == (1:_:1:1:_:1:1:_) && dig == "5"    = True
-    | bin == (1:_:1:1:1:1:1:_) && dig == "6"    = True
-    | bin == (1:1:1:_:_:_:_:_) && dig == "7"    = True
-    | bin == (1:1:1:1:1:1:1:_) && dig == "8"    = True
-    | bin == (1:1:1:1:_:1:1:_) && dig == "9"    = True
-    | otherwise                                 = False
--}
-
---willItFit :: String -> String -> Bool
-willItFit [_,_,_,_,_,_,_,'0']               [_,'.']                 = False
-willItFit ['1','1','1','1','1','1',_,'1']   "0."  = True
-willItFit [_,'1','1',_,_,_,_,'1']           "1."  = True
-willItFit ['1','1',_,'1','1',_,'1','1']     "2."  = True
-willItFit ['1','1','1','1',_,_,'1','1']     "3."  = True
-willItFit [_,'1','1',_,_,'1','1','1']       "4."  = True
-willItFit ['1',_,'1','1',_,'1','1','1']     "5."  = True
-willItFit ['1',_,'1','1','1','1','1','1']   "6."  = True
-willItFit ['1','1','1',_,_,_,_,'1']         "7."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "8."  = True
-willItFit ['1','1','1','1',_,'1','1','1']   "9."  = True
-
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-willItFit ['1','1','1','1','1','1','1','1'] "0."  = True
-
-
--- this part is under construction
-formFullNum :: [String] -> String
---formFullNum = foldl (\x acc -> binaryToDigit x ++ acc) []
---formFullNum ss = foldr (\x acc -> binaryToDigit x ++ acc) []
-formFullNum = foldr (\x acc -> (binaryToDigit x) ++ acc) []
-
-
-showDigitValue = map binaryToDigit
-
-
 digitToBinary :: String -> String
 digitToBinary s
     | s == "0."  = "11111101"
@@ -128,3 +65,28 @@ digitToBinary s
     | s == "8"   = "11111110"
     | s == "9"   = "11110110"
     | otherwise     = "#"
+
+
+-- this part is under construction
+--formFullNum :: [String] -> String
+--formFullNum = foldl (\x acc -> binaryToDigit x ++ acc) []
+--formFullNum ss = foldr (\x acc -> binaryToDigit x ++ acc) []
+--formFullNum = foldr (\x acc -> (binaryToDigit x) ++ acc)
+
+
+restrictedDigits :: String -> [String]
+--restrictedDigits (a:b:c:d:e:f:g:h)
+restrictedDigits [a,b,c,d,e,f,g,h]
+    | a == '0'  = ["0","2","3","5","6","7","8","9","0.","2.","3.","5.","6.","7.","8.","9."]
+    | b == '0'  = ["0","1","2","3","4","7","8","9","0.","1.","2.","3.","4.","7.","8.","9."] 
+    | c == '0'  = ["0","1","3","4","5","6","7","8","9","0.","1.","3.","4.","5.","6.","7.","8.","9."] 
+    | d == '0'  = ["0","2","3","5","6","8","9","0.","2.","3.","5.","6.","8.","9."] 
+    | e == '0'  = ["0","2","6","8","0.","2.","6.","8."] 
+    | f == '0'  = ["0","4","5","6","8","9","0.","4.","5.","6.","8.","9."] 
+    | g == '0'  = ["2","3","4","5","6","8","9","2.","3.","4.","5.","6.","8.","9."] 
+    | h == '0'  = ["0","1","2","3","4","5","6","7","8","9","0.","1.","2.","3.","4.","5.","6.","7.","8.","9."] 
+    | otherwise = []
+
+
+showDigitValue = map binaryToDigit
+
