@@ -87,5 +87,36 @@ restrictedDigits [a,b,c,d,e,f,g,h]
     | otherwise = []
 
 
+willDisplay :: String -> String -> Bool
+willDisplay []                                      = False
+willDisplay [_]                                     = False
+willDisplay [_,_]                                   = False
+willDisplay [_,_,_]                                 = False
+willDisplay [_,_,_,_]                               = False
+willDisplay [_,_,_,_,_]                             = False
+willDisplay [_,_,_,_,_,_]                           = False
+willDisplay [_,_,_,_,_,_,_]                         = False
+willDisplay ['1','1','1','1','1','1',_,'1'] "0."    = True
+willDisplay [_,'1','1',_,_,_,_,'1']         "1."    = True
+willDisplay ['1','1',_,'1','1',_,'1','1']   "2."    = True
+willDisplay ['1','1','1','1',_,_,'1','1']   "3."    = True
+willDisplay [_,'1','1',_,_,'1','1','1']     "4."    = True
+willDisplay ['1',_,'1','1',_,'1','1','1']   "5."    = True
+willDisplay ['1',_,'1','1','1','1','1','1'] "6."    = True
+willDisplay ['1','1','1',_,_,_,_,'1']       "7."    = True
+willDisplay "11111111"                      "8."    = True
+willDisplay ['1','1','1','1',_,'1','1','1'] "9."    = True
+willDisplay ['1','1','1','1','1','1',_,_]   "0"     = True
+willDisplay [_,'1','1',_,_,_,_,_]           "1"     = True
+willDisplay ['1','1',_,'1','1',_,'1',_]     "2"     = True
+willDisplay ['1','1','1','1',_,_,'1',_]     "3"     = True
+willDisplay [_,'1','1',_,_,'1','1',_]       "4"     = True
+willDisplay ['1',_,'1','1',_,'1','1',_]     "5"     = True
+willDisplay ['1',_,'1','1','1','1','1',_]   "6"     = True
+willDisplay ['1','1','1',_,_,_,_,_]         "7"     = True
+willDisplay ['1','1','1','1','1','1','1',_] "8"     = True
+willDisplay ['1','1','1','1',_,'1','1',_]   "9"     = True
+
+
 showDigitValue = map binaryToDigit
 
