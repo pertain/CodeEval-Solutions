@@ -8,7 +8,6 @@
 
 import System.Environment (getArgs)
 import Data.List (null)
-import Data.List.Split (splitOn)
 
 main :: IO ()
 main = do
@@ -18,7 +17,7 @@ main = do
     mapM_ putStrLn $ revAllLists linesList
 
 revList :: String -> String
-revList = unwords . reverse . splitOn " "
+revList = unwords . reverse . words
 
 revAllLists :: [String] -> [String]
 revAllLists = foldr (\x acc -> if null x then acc else revList x : acc) []
