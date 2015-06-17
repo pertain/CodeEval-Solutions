@@ -7,7 +7,7 @@
  -}
 
 import System.Environment (getArgs)
-import Data.List (intersperse)
+import Data.List (intercalate)
 import Data.List.Split (splitOneOf, splitEvery)
 import qualified Data.ByteString.Lazy.Char8 as LB
 
@@ -41,7 +41,7 @@ revGrps sss k
 
 -- Split list into groups of size k, reverse them and output as string
 finalizeLine :: String -> String
-finalizeLine s = init $ concatMap (++",") (revGrps grps k)
+finalizeLine s = intercalate "," (revGrps grps k)
     where
         splitLn = splitOneOf ",;" s
         k       = strToInt $ last splitLn
