@@ -6,7 +6,7 @@
  - https://www.codeeval.com/open_challenges/167/
  -
  - =================================================
- - THIS WAS SUBMITTED BUT IS PARTIALLY CORRECT (90%)
+ - THIS WAS SUBMITTED BUT IS PARTIALLY CORRECT (92%)
  -
  -  ~ must continue to troubleshoot the problem
  - =================================================
@@ -24,17 +24,18 @@ main = do
 
 readMore :: String -> String
 readMore s
-    | len > 55  = rdMr
-    | otherwise = s
+    | length s > 55 = rdMr
+    | otherwise     = s
     where
-        len     = length s
-        trunc   = head $ splitPlaces [40] s
-        splt    = words trunc
-        lenSplt = length splt
-        trimmed = unwords $ init splt
+        trunc                       = head $ splitPlaces [40] s
+        trimTrunc
+            | last trunc == ' '     = init trunc
+            | otherwise             = trunc
+        splitTrunc                  = words trimTrunc
+        trimSplit                   = unwords $ init splitTrunc
         rdMr
-            | lenSplt > 1   = trimmed ++ "... <Read More>"
-            | otherwise     = trunc ++ "... <Read Less>"
+            | length splitTrunc > 1 = trimSplit ++ "... <Read More>"
+            | otherwise             = trimTrunc ++ "... <Read More>"
 
 readMoreAll :: [String] -> [String]
 readMoreAll = map readMore
