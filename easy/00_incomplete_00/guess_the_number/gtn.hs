@@ -1,19 +1,6 @@
---{-# LANGUAGE ParallelListComp #-}
-
---testIterate = [if hi == "L" then x else y | x <- [1,1,1,1] | y <- [4,4,4,4] | hi <- ["H","L","H","H"]]
-
---getMiddle :: Int -> Int -> String -> Int
---getMiddle roof floor hiLo
---getMiddle hiLo floor roof
-    --i| hiLo == "Higher"  = floor + distance + 1
-    --i| hiLo == "Lower"   = roof - distance
-    --where
-        --realFloor   = floor + 1
-        --realRoof    = roof - 1
-        --distance    = (roof - floor) `div` 2
-
 import Data.List.Split (splitPlaces)
 
+{-
 getHigherMiddle :: Int -> Int -> Int
 getHigherMiddle floor roof = floor + distance
     where
@@ -57,16 +44,28 @@ robusto hiLo floor roof
         evenSplit   = splitPlaces [half, half] fullRange
         oddSplit    = splitPlaces [half, 1, half] fullRange
         newBound    = last $ head evenSplit
-{-
-testLo :: Int -> Int -> [Int]
-testLo floor roof
-    | even len = head (last evenSplit) : testLo floor newRoof
-    | otherwise = head (oddSplit !! 1) : testLo floor newRoof
-    where
-        fullRange   = [floor .. roof]
-        len         = length fullRange
-        half        = len `div` 2
-        evenSplit   = splitPlaces [half, half] fullRange
-        oddSplit    = splitPlaces [half, 1, half] fullRange
-        newRoof     = last $ head evenSplit
 -}
+
+-- UNDER CONSTRUCTION -- NOT QUITE THERE YET
+lowerMid :: Int -> Int -> Int
+lowerMid lo hi
+    | evenLen   = evenDist
+    | otherwise = oddDist
+    where
+        len         = length [lo .. hi]
+        evenLen     = even len
+        distance    = (hi - lo) `div` 2
+        evenDist    = roof - distance + 1
+        oddDist     = 
+
+-- UNDER CONSTRUCTION -- NOT QUITE THERE YET
+higherMid :: Int -> Int -> Int
+higherMid lo hi
+    | evenLen   = evenDist
+    | otherwise = oddDist
+    where
+        len         = length [lo .. hi]
+        evenLen     = even len
+        distance    = (hi - lo) `div` 2
+        evenDist    = lo + distance + 1
+        oddDist     = lo + distance
