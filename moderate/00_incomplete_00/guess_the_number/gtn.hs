@@ -51,7 +51,7 @@ parseLine :: String -> String
 parseLine ls = getFinalNumLine $ getAllMids hiLoString floor roof
     where
         lineData    = init $ words ls
-        hiLoString  = reverse $ "Lower" : (tail lineData)
+        hiLoString  = reverse $ "Lower" : tail lineData
         floor       = 0
         roof        = bsToInt $ LB.pack $ head lineData
 
