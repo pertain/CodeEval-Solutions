@@ -34,5 +34,3 @@ intizeLine s = map wordToInt (splitOn ";" s)
 
 intizeFile :: [String] -> [String]
 intizeFile = map intizeLine
-
---dummy line for testing git change
