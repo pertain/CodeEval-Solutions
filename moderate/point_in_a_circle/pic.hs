@@ -26,16 +26,25 @@ strToDbl s
         notDbl      = length pair == 0
         floatVal    = fst $ head pair
 
+{-
 decPrecision :: Double -> Int -> Double
 decPrecision x n = (fromIntegral $ round (x * digs)) / digs
     where
         digs = 10^n
+-}
 
 splitLn :: (Char -> Bool) -> String -> [String]
 splitLn del []  = []
 splitLn del s   = w : splitLn del (drop 2 rest)
     where
         (w,rest) = span del s
+
+parseLine :: String -> (Circle,Point)
+parseLine s = (circ,pt)
+    where
+        parts@(c:r:p:_) = splitLn (/=';') s
+        circ            = (Circle (parsePoint c) (parseRad r))
+        pt              = parsePoint p
 
 parsePoint :: String -> Point
 parsePoint s = (x,y)
@@ -48,13 +57,6 @@ parsePoint s = (x,y)
 parseRad :: String -> Double
 parseRad = strToDbl . last . words
 
-parseLine :: String -> (Circle,Point)
-parseLine s = (circ,pt)
-    where
-        parts@(c:r:p:_) = splitLn (/=';') s
-        circ            = (Circle (parsePoint c) (parseRad r))
-        pt              = parsePoint p
-
 pointInCircle :: (Circle,Point) -> String
 pointInCircle ((Circle (x1,y1) r),(x2,y2))
     | dist < r = "true"
@@ -62,14 +64,8 @@ pointInCircle ((Circle (x1,y1) r),(x2,y2))
     where
         xs      = (x2 - x1)^2
         ys      = (y2 - y1)^2
-        dist    = decPrecision (sqrt (xs + ys)) 3
-
-distRad :: (Circle,Point) -> (Double,Double)
-distRad ((Circle (x1,y1) r),(x2,y2)) = (r,dist)
-    where
-        xs      = (x2 - x1)^2
-        ys      = (y2 - y1)^2
-        dist    = decPrecision (sqrt (xs + ys)) 3
+        dist    = sqrt (xs + ys)
+        --dist    = decPrecision (sqrt (xs + ys)) 3
 
 checkAllCircles :: [String] -> [String]
 checkAllCircles = map (pointInCircle . parseLine)
