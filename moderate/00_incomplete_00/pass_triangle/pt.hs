@@ -26,11 +26,12 @@ mir r i
  - (like playGame example)
  -}
 
+{- This version keeps a list of values selected from every row
 smir :: Row -> State PathState PathValue
 --smir :: Row -> State (Int,[Int]) [Int]
 smir []     = do
-    (_,path) <- get
-    return path
+    (_,_) <- get
+    return []
 
 smir [x]    = do
     (_,path) <- get
@@ -39,18 +40,50 @@ smir [x]    = do
 
 smir [x,y]  = do
     (index,path) <- get
-    case max x y of
-        x   -> (put (index,x:path)) >> return (x:path)
-        y   -> (put (index+1,y:path)) >> return (y:path)
+    case x == max x y of
+        True    -> (put (index,x:path)) >> return (x:path)
+        False   -> (put (index+1,y:path)) >> return (y:path)
 
 smir r      = do
     (index,path) <- get
     let (x:y:_) = drop index r
-    case max x y of
-        x  -> (put (index+1,x:path)) >> return (x:path)
-        y  -> (put (index+2,y:path)) >> return (y:path)
+    case x == max x y of
+        True    -> (put (index,x:path)) >> return (x:path)
+        False   -> (put (index+1,y:path)) >> return (y:path)
     
 startState :: PathState
 startState = (0,[])
+-}
+
+-------------------------------------------
+
+--{- This version keeps a cumulative sum of the values selected from every row
+--smir :: Row -> State PathState PathValue
+smir :: Row -> State (Int,Int) Int
+smir []     = do
+    (_,_) <- get
+    return 0
+
+smir [x]    = do
+    (_,path) <- get
+    put (0,path+x)
+    return (path+x)
+
+smir [x,y]  = do
+    (index,path) <- get
+    case x == max x y of
+        True    -> (put (index,path+x)) >> return (path+x)
+        False   -> (put (index+1,path+y)) >> return (path+y)
+
+smir r      = do
+    (index,path) <- get
+    let (x:y:_) = drop index r
+    case x == max x y of
+        True    -> (put (index,path+x)) >> return (path+x)
+        False   -> (put (index+1,path+y)) >> return (path+y)
+    
+startState :: (Int,Int)
+startState = (0,0)
+---}
 
 -------------------------------------------
