@@ -1,91 +1,105 @@
+import System.Environment (getArgs)
 import Control.Monad.State
 
 type Row = [Int]
-type PathValue = [Int]
-type PathState = (Int,[Int])
 
-mir :: Row -> Int -> (Int,Int)
-mir [] _    = (0,0)
-mir [x] _   = (x,0)
+main :: IO ()
+main = do
+    inFile <- getArgs
+    file <- readFile $ head inFile
+    let linesList = lines file
+    print $ evalState (getPath linesList) startState
 
-mir [x,y] i
-    | x == max x y  = (x,i)
-    | otherwise     = (y,i+1)
+{- Non-monadic starting point for the stateful getRowVal
+mir :: Row -> Int -> (Int, Int)
+mir [] _    = (0, 0)
+mir [x] _   = (x, 0)
+
+mir [x, y] i
+    | x == max x y  = (x, i)
+    | otherwise     = (y, i + 1)
 
 mir r i
-    | x' == max x' y'   = (x',i)
-    | otherwise         = (y',i+1)
+    | x' == max x' y'   = (x', i)
+    | otherwise         = (y', i + 1)
     where
         (x':y':_)   = drop i r
+-}
 
 -------------------------------------------
-{- Calculates correct state/value/index for a single row,
- - and can be used to chain several rows for a final result
- - (i.e. runState ((smir [5]) >> (smir [9,6])) (0,[])),
- - but needs modification to handle a list of rows recursively
- - (like playGame example)
- -}
 
 {- This version keeps a list of values selected from every row
-smir :: Row -> State PathState PathValue
---smir :: Row -> State (Int,[Int]) [Int]
-smir []     = do
-    (_,_) <- get
-    return []
+type PathValue = [Int]
+type PathState = (Int, [Int])
 
-smir [x]    = do
-    (_,path) <- get
-    put (0,x:path)
-    return (x:path)
+-- getRowVal updates the state with a new index-rowValue pair
+getRowVal :: Row -> State PathState ()
+getRowVal []     = do
+    (_, _) <- get
+    put (0, [])
 
-smir [x,y]  = do
-    (index,path) <- get
-    case x == max x y of
-        True    -> (put (index,x:path)) >> return (x:path)
-        False   -> (put (index+1,y:path)) >> return (y:path)
+getRowVal [x]    = do
+    (_, total) <- get
+    put (0, x : total)
 
-smir r      = do
-    (index,path) <- get
+getRowVal r      = do
+    (index, total) <- get
     let (x:y:_) = drop index r
     case x == max x y of
-        True    -> (put (index,x:path)) >> return (x:path)
-        False   -> (put (index+1,y:path)) >> return (y:path)
+        True    -> put (index, x : total)
+        False   -> put (index + 1, y : total)
+
+-- getPath recursively calls getRowVal on a list of rows
+getPath :: [String] -> State PathState PathValue
+getPath []      = do
+    (_, total) <- get
+    return total
+
+getPath (r:rs)  = do
+    let row = map read $ words r
+    getRowVal row 
+    getPath rs
     
 startState :: PathState
-startState = (0,[])
+startState = (0, [])
 -}
 
 -------------------------------------------
 
 --{- This version keeps a cumulative sum of the values selected from every row
---smir :: Row -> State PathState PathValue
-smir :: Row -> State (Int,Int) Int
-smir []     = do
-    --(_,_) <- get
-    return 0
+type PathValue = Int
+type PathState = (Int, Int)
 
-smir [x]    = do
-    (_,path) <- get
-    put (0,path+x)
-    return (path+x)
+-- getRowVal updates the state with a new index-rowValue pair
+getRowVal :: Row -> State PathState ()
+getRowVal []     = do
+    (_, _) <- get
+    put (0, 0)
 
-{-
-smir [x,y]  = do
-    (index,path) <- get
-    case x == max x y of
-        True    -> (put (index,path+x)) >> return (path+x)
-        False   -> (put (index+1,path+y)) >> return (path+y)
--}
+getRowVal [x]    = do
+    (_, total) <- get
+    put (0, total + x)
 
-smir r      = do
-    (index,path) <- get
+getRowVal r      = do
+    (index, total) <- get
     let (x:y:_) = drop index r
     case x == max x y of
-        True    -> (put (index,path+x)) >> return (path+x)
-        False   -> (put (index+1,path+y)) >> return (path+y)
+        True    -> put (index, total + x)
+        False   -> put (index + 1, total + y)
+
+-- getPath recursively calls getRowVal on a list of rows
+getPath :: [String] -> State PathState PathValue
+getPath []      = do
+    (_, total) <- get
+    return total
+
+getPath (r:rs)  = do
+    let row = map read $ words r
+    getRowVal row 
+    getPath rs
     
-startState :: (Int,Int)
-startState = (0,0)
+startState :: PathState
+startState = (0, 0)
 ---}
 
 -------------------------------------------
