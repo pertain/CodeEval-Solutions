@@ -61,7 +61,7 @@ startState = (0,[])
 --smir :: Row -> State PathState PathValue
 smir :: Row -> State (Int,Int) Int
 smir []     = do
-    (_,_) <- get
+    --(_,_) <- get
     return 0
 
 smir [x]    = do
@@ -69,11 +69,13 @@ smir [x]    = do
     put (0,path+x)
     return (path+x)
 
+{-
 smir [x,y]  = do
     (index,path) <- get
     case x == max x y of
         True    -> (put (index,path+x)) >> return (path+x)
         False   -> (put (index+1,path+y)) >> return (path+y)
+-}
 
 smir r      = do
     (index,path) <- get
