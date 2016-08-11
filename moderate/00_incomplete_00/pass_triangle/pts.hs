@@ -10,22 +10,6 @@ main = do
     let linesList = lines file
     print $ evalState (getPath linesList) startState
 
-{- Non-monadic starting point for the stateful getRowVal
-mir :: Row -> Int -> (Int, Int)
-mir [] _    = (0, 0)
-mir [x] _   = (x, 0)
-
-mir [x, y] i
-    | x == max x y  = (x, i)
-    | otherwise     = (y, i + 1)
-
-mir r i
-    | x' == max x' y'   = (x', i)
-    | otherwise         = (y', i + 1)
-    where
-        (x':y':_)   = drop i r
--}
-
 -------------------------------------------
 
 {- This version keeps a list of values selected from every row
