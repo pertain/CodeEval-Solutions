@@ -1,6 +1,11 @@
+-- Non-monadic pass triangle challange
+
 import System.Environment (getArgs)
 
 type Row = [Int]
+
+startVal :: [(Int, Int)]
+startVal = [(0, 0)]
 
 main :: IO ()
 main = do
@@ -9,11 +14,7 @@ main = do
     let linesList = lines file
     let ((i,pathVal):_) = getPath linesList
     print pathVal
-    --mapM_ putStrLn $ linesList
 
--------------------------------------------
-
--- Non-monadic pass triangle challange
 mir :: Row -> Int -> (Int, Int)
 mir [] _    = (0, 0)
 mir [x] _   = (0, x)
@@ -32,14 +33,3 @@ getPath = foldl (\acc rw -> let
                             in
                                 (i',t+t') : acc
                 ) startVal
-
---getPathVal :: [(Int,Int)] -> Int
---getPathVal ((i,t):_) = 
-
-startVal :: [(Int, Int)]
-startVal = [(0, 0)]
-
--------------------------------------------
-
---startVal :: (Int, Int)
---startVal = (0, 0)
