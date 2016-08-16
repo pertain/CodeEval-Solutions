@@ -9,8 +9,8 @@ startVal = [(0, 0)]
 
 main :: IO ()
 main = do
-    inFile <- getArgs
-    file <- readFile $ head inFile
+    [inFile] <- getArgs
+    file <- readFile inFile
     let linesList = lines file
     let ((i,pathVal):_) = getPath linesList
     print pathVal

@@ -5,8 +5,8 @@ type Row = [Int]
 
 main :: IO ()
 main = do
-    inFile <- getArgs
-    file <- readFile $ head inFile
+    [inFile] <- getArgs
+    file <- readFile inFile
     let linesList = lines file
     print $ evalState (getPath linesList) startState
 
