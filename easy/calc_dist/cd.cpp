@@ -45,7 +45,7 @@ int main(int argc, char** argv){
         ifstream ifs(argv[1]);
 
         if(!ifs.is_open()){
-            cout << "Could not open the file: " << argv[1] << endl;
+            cout << "Could not open the file: " << argv[0] << endl;
         }
         else {
             while(getline(ifs, fline)){
