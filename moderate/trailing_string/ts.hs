@@ -29,10 +29,8 @@ parseLine s
 
 evalLine :: (String,String) -> Int
 evalLine t
-    | isMatch   = 1
-    | otherwise = 0
-    where
-        isMatch = uncurry (==) t
+    | uncurry (==) t    = 1
+    | otherwise         = 0
 
 evalAllLines :: [String] -> [String]
 evalAllLines = foldr (\x acc ->
